@@ -484,9 +484,148 @@ export const ALL_QUESTIONS = [
   question:'Wie heißt der heilige Pilgerort im Islam?',
   options:['Jerusalem','Mekka','Medina','Istanbul'],
   correct:1 },
+
+// ── NEUE FREITEXT-FRAGEN ─────────────────────────────────
+
+// --- FRIEDENSETHIK: Gordon ---
+{ id:'qt1', category:'Friedensethik', topicIds:['gordon'], type:'text',
+  question:'Nenne alle 6 Schritte von Gordons Konfliktlösung in der richtigen Reihenfolge.',
+  answer:'1. Definition des Problems 2. Sammlung möglicher Lösungen 3. Wertung der Lösungsvorschläge 4. Entscheidung 5. Realisierung der Entscheidung 6. Beurteilung in der Praxis',
+  keywords:['definition','sammlung','wertung','entscheidung','realisierung','beurteilung'] },
+
+{ id:'qt2', category:'Friedensethik', topicIds:['gordon'], type:'text',
+  question:'Was bedeutet „niederlagelose Konfliktlösung" und wer hat sie entwickelt?',
+  answer:'Thomas Gordon (amerikanischer Psychologe, 1918–2002) entwickelte eine Methode, bei der alle Beteiligten mit der Lösung einverstanden sind – niemand verliert.',
+  keywords:['gordon','einverstanden','verliert','beteiligten','lösung'] },
+
+{ id:'qt3', category:'Friedensethik', topicIds:['gordon'], type:'text',
+  question:'Was passiert bei Schritt 6 (Beurteilung in der Praxis) von Gordons Methode, wenn jemand unzufrieden ist?',
+  answer:'Bei Unzufriedenheit geht man zurück zu Schritt 1 (Definition des Problems) und startet den Prozess neu.',
+  keywords:['schritt','zurück','unzufrieden','neu','definition'] },
+
+// --- FRIEDENSETHIK: Gewalt ---
+{ id:'qt4', category:'Friedensethik', topicIds:['gewalt'], type:'text',
+  question:'Erkläre alle drei Gewaltformen mit je einem Beispiel.',
+  answer:'Psychische Gewalt: seelische Verletzung (z.B. Mobbing, Beleidigung). Physische Gewalt: körperliche Verletzung (z.B. Schlagen). Strukturelle Gewalt: versteckte Benachteiligung durch gesellschaftliche Strukturen (z.B. fehlende Barrierefreiheit).',
+  keywords:['psychische','physische','strukturelle','mobbing','körperlich','seelisch','benachteiligung'] },
+
+{ id:'qt5', category:'Friedensethik', topicIds:['gewalt'], type:'text',
+  question:'Nenne 3 sinnvolle und 2 nicht sinnvolle Maßnahmen gegen strukturelle Gewalt.',
+  answer:'Sinnvoll: politisches Engagement, Bildung, Nächstenliebe/Empathie. Nicht sinnvoll: körperliche Gewalt gegen Bevorzugte, psychische Gewalt gegen Benachteiligte.',
+  keywords:['engagement','bildung','empathie','körperliche','psychische'] },
+
+// --- FRIEDENSETHIK: Flucht ---
+{ id:'qt6', category:'Friedensethik', topicIds:['flucht'], type:'text',
+  question:'Nenne die 4 wichtigsten Hilfsorganisationen und ihre Aufgaben.',
+  answer:'UNICEF: Kinderhilfe und Kinderrechte weltweit. Amnesty International: Menschenrechte. UNHCR: Flüchtlingsschutz (UN). Rotes Kreuz: humanitäre Hilfe, medizinische Versorgung.',
+  keywords:['unicef','amnesty','unhcr','rotes kreuz','menschenrechte','flüchtlingsschutz','kinderhilfe'] },
+
+{ id:'qt7', category:'Friedensethik', topicIds:['flucht'], type:'text',
+  question:'Nenne 3 Unterschiede zwischen Krieg im Computerspiel und echtem Krieg.',
+  answer:'Im Spiel: unendlich viele Leben, kein Leid/Schmerz, keine seelischen Verletzungen. In der Realität: nur ein Leben, Leid und Schmerz, Traumata und Trauer.',
+  keywords:['leben','leid','schmerz','trauma','spiel','realität'] },
+
+// --- SINNSUCHE: Sterbephasen ---
+{ id:'qt8', category:'Sinnsuche', topicIds:['sterben'], type:'text',
+  question:'Nenne alle 5 Sterbephasen nach Kübler-Ross in der richtigen Reihenfolge.',
+  answer:'1. Nichtwahrhabenwollen (Leugnen) 2. Zorn (Wut/Auflehnung) 3. Verhandeln 4. Depression (Trauer) 5. Zustimmung (Akzeptanz)',
+  keywords:['leugnen','zorn','verhandeln','depression','akzeptanz','nichtwahrhabenwollen'] },
+
+{ id:'qt9', category:'Sinnsuche', topicIds:['sterben'], type:'text',
+  question:'Beschreibe die Phase „Verhandeln" bei Kübler-Ross.',
+  answer:'Wunsch nach Fristverlängerung, Versprechen machen, Kirchenbesuche, Suche nach Wundermitteln. Typischer Gedanke: „Wenn ich nur noch..."',
+  keywords:['fristverlängerung','versprechen','kirchenbesuche','wundermittel','wunsch'] },
+
+{ id:'qt10', category:'Sinnsuche', topicIds:['sterben'], type:'text',
+  question:'Was ist der Unterschied zwischen aktiver und passiver Sterbehilfe? Was ist in Deutschland erlaubt?',
+  answer:'Aktive Sterbehilfe = aktives Herbeiführen des Todes → in Deutschland verboten. Passive Sterbehilfe = Verzicht auf lebenserhaltende Maßnahmen → unter bestimmten Umständen erlaubt.',
+  keywords:['aktive','passive','verboten','erlaubt','maßnahmen','herbeiführen'] },
+
+{ id:'qt11', category:'Sinnsuche', topicIds:['sterben'], type:'text',
+  question:'Was ist ein Hospiz und welche Aufgabe hat es?',
+  answer:'Ein Hospiz ist eine Einrichtung, die Sterbende würdevoll in ihren letzten Lebenswochen begleitet. Es geht um Pflege, Schmerzlinderung und menschliche Begleitung, nicht um Heilung.',
+  keywords:['würdevoll','begleitet','sterbende','pflege','lebenswochen'] },
+
+// --- SINNSUCHE: Sinn ---
+{ id:'qt12', category:'Sinnsuche', topicIds:['sinn'], type:'text',
+  question:'Nenne 5 Dinge, die im Leben echten Halt und Sinn geben können.',
+  answer:'Familie und Freundschaft, Religion/Glaube, ehrenamtliches Engagement, Arbeit und Berufung, Kunst/Musik/Sport.',
+  keywords:['familie','freundschaft','religion','engagement','arbeit','kunst','sport'] },
+
+{ id:'qt13', category:'Sinnsuche', topicIds:['sinn'], type:'text',
+  question:'Erkläre warum Alkohol ein „verfehltes Sinnangebot" ist.',
+  answer:'Alkohol führt zu Aggressivität, Depression und Geldproblemen. Er löst die eigentlichen Probleme nicht, sondern überdeckt sie nur vorübergehend und macht abhängig.',
+  keywords:['aggressivität','depression','geldprobleme','abhängig','überdeckt','löst'] },
+
+{ id:'qt14', category:'Sinnsuche', topicIds:['sinn'], type:'text',
+  question:'Nenne mindestens 5 Merkmale einer gefährlichen Sekte.',
+  answer:'Strenge Rangordnung, Zwang, Geldabgabe, Ausspionieren anderer Mitglieder, Abgrenzung von der Außenwelt, Geheimhaltung, man kann die Gruppe nicht einfach verlassen.',
+  keywords:['rangordnung','zwang','geldabgabe','ausspionieren','abgrenzung','verlassen','geheimhaltung'] },
+
+// --- WELTRELIGIONEN: 5 Säulen ---
+{ id:'qt15', category:'Weltreligionen', topicIds:['gebote'], type:'text',
+  question:'Nenne alle 5 Säulen des Islam – auf Deutsch und mit den arabischen Fachbegriffen.',
+  answer:'1. Glaubensbekenntnis (Schahada) 2. 5 tägliche Gebete (Salat) 3. Wohltätigkeit/Almosen (Zakat) 4. Fasten im Ramadan (Saum) 5. Pilgerfahrt nach Mekka (Haddsch)',
+  keywords:['schahada','salat','zakat','saum','haddsch','glaubensbekenntnis','gebete','fasten','pilgerfahrt','mekka'] },
+
+{ id:'qt16', category:'Weltreligionen', topicIds:['gebote'], type:'text',
+  question:'Was ist die Schahada und warum ist sie die 1. Säule des Islam?',
+  answer:'Die Schahada ist das islamische Glaubensbekenntnis: „Es gibt keinen Gott außer Allah, und Mohammed ist sein Prophet." Sie steht an erster Stelle, weil sie die Grundlage des islamischen Glaubens ist.',
+  keywords:['schahada','glaubensbekenntnis','allah','mohammed','prophet','grundlage'] },
+
+{ id:'qt17', category:'Weltreligionen', topicIds:['gebote'], type:'text',
+  question:'Erkläre Zakat (3. Säule des Islam).',
+  answer:'Zakat bedeutet Wohltätigkeit/Almosen. Gläubige Muslime sind verpflichtet, einen Teil ihres Vermögens (ca. 2,5%) an Bedürftige zu spenden. Es ist eine Form der sozialen Verantwortung.',
+  keywords:['zakat','wohltätigkeit','almosen','vermögen','bedürftige','spenden'] },
+
+// --- WELTRELIGIONEN: 10 Gebote ---
+{ id:'qt18', category:'Weltreligionen', topicIds:['gebote'], type:'text',
+  question:'Nenne alle 10 Gebote (Kurzform reicht).',
+  answer:'1. Keine anderen Götter 2. Gottes Namen nicht missbrauchen 3. Feiertag heiligen (Sabbat) 4. Eltern ehren 5. Nicht töten 6. Nicht ehebrechen 7. Nicht stehlen 8. Nicht falsch bezeugen/lügen 9. Nicht begehren (Haus des Nächsten) 10. Nicht begehren (Frau/Eigentum)',
+  keywords:['götter','namen','feiertag','eltern','töten','ehebrechen','stehlen','bezeugen','begehren'] },
+
+{ id:'qt19', category:'Weltreligionen', topicIds:['gebote'], type:'text',
+  question:'Was ist der Unterschied zwischen einer religiösen Norm und einem staatlichen Gesetz?',
+  answer:'Religiöse Normen gelten für Gläubige einer Religion und werden durch den Glauben begründet. Staatliche Gesetze gelten für alle Bürger und werden vom Staat rechtlich durchgesetzt (z.B. mit Strafen).',
+  keywords:['religiöse','staatliche','gläubige','bürger','rechtlich','durchgesetzt','gelten'] },
+
+// --- WELTRELIGIONEN: Achtfacher Pfad ---
+{ id:'qt20', category:'Weltreligionen', topicIds:['karma'], type:'text',
+  question:'Nenne alle 8 Schritte des Achtfachen Pfades im Buddhismus.',
+  answer:'1. Rechte Ansicht 2. Rechte Absicht 3. Rechte Rede 4. Rechtes Handeln 5. Rechter Lebenserwerb 6. Rechte Anstrengung 7. Rechte Achtsamkeit 8. Rechte Sammlung/Meditation',
+  keywords:['ansicht','absicht','rede','handeln','lebenserwerb','anstrengung','achtsamkeit','sammlung','meditation'] },
+
+{ id:'qt21', category:'Weltreligionen', topicIds:['karma'], type:'text',
+  question:'Was ist Karma und wie hängt es mit Reinkarnation zusammen?',
+  answer:'Karma bedeutet, dass jede Tat Konsequenzen hat – gute Taten führen zu gutem Karma, schlechte zu schlechtem. Die Reinkarnation (Wiedergeburt der Seele in einem neuen Körper) wird durch das angesammelte Karma beeinflusst.',
+  keywords:['karma','konsequenzen','reinkarnation','wiedergeburt','seele','taten','gutes'] },
+
+{ id:'qt22', category:'Weltreligionen', topicIds:['karma'], type:'text',
+  question:'Was ist das Ziel des Achtfachen Pfades und wie heißt dieser Zustand?',
+  answer:'Das Ziel ist Nirvana – die Befreiung vom Leid und Kreislauf der Wiedergeburten. Nirvana ist ein Zustand völliger innerer Ruhe und Erleuchtung.',
+  keywords:['nirvana','befreiung','leid','wiedergeburten','erleuchtung','ruhe'] },
+
+// --- WELTRELIGIONEN: Religionen vergleichen ---
+{ id:'qt23', category:'Weltreligionen', topicIds:['religionen'], type:'text',
+  question:'Nenne für jede der 5 Weltreligionen: heilige Schrift und Gotteshaus.',
+  answer:'Christentum: Bibel, Kirche. Islam: Koran, Moschee. Judentum: Tanach/Tora, Synagoge. Hinduismus: Veden, Tempel. Buddhismus: Pali-Kanon, Tempel/Kloster.',
+  keywords:['bibel','kirche','koran','moschee','tanach','synagoge','veden','tempel','pali'] },
+
+{ id:'qt24', category:'Weltreligionen', topicIds:['religionen'], type:'text',
+  question:'Was haben Christentum, Judentum und Islam gemeinsam? Nenne mindestens 3 Gemeinsamkeiten.',
+  answer:'Alle drei sind monotheistisch (Glaube an einen Gott). Abraham gilt als gemeinsamer Stammvater. Glaube an Leben nach dem Tod. Heilige Schriften. Gemeinsames Erbe aus dem Nahen Osten.',
+  keywords:['monotheistisch','abraham','stammvater','leben nach dem tod','schriften','gott'] },
+
+{ id:'qt25', category:'Weltreligionen', topicIds:['religionen'], type:'text',
+  question:'Was bedeutet „Weltethos" und was ist der Grundgedanke?',
+  answer:'Weltethos bezeichnet gemeinsame ethische Grundwerte aller Weltreligionen. Der Grundgedanke: Obwohl Religionen verschieden sind, teilen sie grundlegende moralische Werte wie Nächstenliebe, Gerechtigkeit und das Verbot zu töten.',
+  keywords:['weltethos','grundwerte','religionen','nächstenliebe','gerechtigkeit','gemeinsam'] },
 ];
 
-export const MINI_IDS = ['q1','q2','q3','q4','q13','q14','q15','q17','q23','q25','q27','q30','q31','q33','q37'];
+export const MINI_IDS = [
+  'q1','q2','q3','q4','q13','q14','q15','q17','q23','q25','q27','q30','q31','q33','q37',
+  'qt8','qt15','qt20','qt1','qt4','qt12','qt14',
+];
 
 export const CATEGORIES = ['Friedensethik', 'Sinnsuche', 'Weltreligionen'];
 
