@@ -1,0 +1,32 @@
+.root { display: flex; flex-direction: column; gap: 0.5rem; }
+.label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--text-faint); }
+
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; }
+
+.card {
+  display: flex; flex-direction: column; align-items: center; gap: 0.35rem;
+  padding: 0.75rem 0.5rem;
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); cursor: pointer;
+  transition: all 0.12s; text-align: center; position: relative;
+}
+.card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+
+.card_rose { border-top: 3px solid var(--rose); }
+.card_indigo { border-top: 3px solid var(--indigo); }
+.card_emerald { border-top: 3px solid var(--emerald); }
+
+.cardActive { background: var(--surface2); box-shadow: var(--shadow-md); }
+.card_rose.cardActive { background: var(--rose-light); }
+.card_indigo.cardActive { background: var(--indigo-light); }
+.card_emerald.cardActive { background: var(--emerald-light); }
+
+.icon { font-size: 1.5rem; line-height: 1; }
+.info { }
+.name { font-size: 13px; font-weight: 700; color: var(--text); }
+.meta { font-size: 10px; color: var(--text-faint); margin-top: 1px; }
+
+.activeDot {
+  position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%);
+  width: 5px; height: 5px; border-radius: 50%; background: var(--indigo);
+}

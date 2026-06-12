@@ -4,27 +4,28 @@
 /* Top bar */
 .topBar { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; }
 .eyebrow { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.8px; color: var(--indigo); margin-bottom: 2px; }
-.quizTitle { font-size: 16px; font-weight: 700; color: var(--text); }
+.quizTitle { font-size: 15px; font-weight: 700; color: var(--text); }
+
+/* Live stats */
+.liveStats { display: flex; align-items: center; gap: 0.5rem; }
+.livePct { font-size: 17px; font-weight: 900; }
+.streakBadge { font-size: 12px; font-weight: 700; background: var(--amber-light); color: var(--amber); padding: 3px 8px; border-radius: 20px; }
 
 /* Progress */
 .progressWrap { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
 .progressBar { height: 100%; background: linear-gradient(90deg, var(--indigo-mid), var(--indigo)); border-radius: 3px; transition: width 0.35s ease; }
-
-/* Streak */
-.streakPreview { display: flex; gap: 4px; align-items: center; flex-wrap: wrap; justify-content: flex-end; }
-.streakGood { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--emerald); }
-.streakBad { display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: var(--rose); }
+.progressLabel { font-size: 11px; color: var(--text-faint); text-align: right; margin-top: -2px; }
 
 /* Card */
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; box-shadow: var(--shadow); }
 .cardMeta { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; align-items: center; }
-.catTag { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; background: var(--indigo-light); color: var(--indigo); letter-spacing: 0.2px; }
+.catTag { font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 20px; background: var(--indigo-light); color: var(--indigo); }
 .typeTag { font-size: 11px; font-weight: 500; padding: 3px 10px; border-radius: 20px; background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); }
 .questionText { font-size: 17px; line-height: 1.55; font-weight: 600; color: var(--text); margin-bottom: 1.25rem; }
-.hint { font-size: 12px; color: var(--text-faint); font-style: italic; margin-bottom: 0.85rem; }
+.hintBox { font-size: 12px; color: var(--text-faint); font-style: italic; margin-bottom: 0.85rem; padding: 0.5rem 0.75rem; background: var(--surface2); border-radius: var(--radius-xs); border-left: 2px solid var(--border-strong); }
 
 /* Options (MC + Multi) */
-.optionList { display: flex; flex-direction: column; gap: 0.55rem; margin-bottom: 0.25rem; }
+.optionList { display: flex; flex-direction: column; gap: 0.5rem; margin-bottom: 0.25rem; }
 .option {
   display: flex; align-items: center; gap: 0.75rem;
   background: var(--surface2); border: 1.5px solid var(--border);
@@ -33,15 +34,11 @@
   transition: border-color 0.12s, background 0.12s, transform 0.1s;
   width: 100%;
 }
-.option:hover:not(:disabled) {
-  border-color: var(--indigo-mid);
-  background: var(--indigo-light);
-  transform: translateX(2px);
-}
+.option:hover:not(:disabled) { border-color: var(--indigo-mid); background: var(--indigo-light); transform: translateX(2px); }
 .option:disabled { cursor: default; }
 .optionSelected { border-color: var(--indigo-mid) !important; background: var(--indigo-light) !important; }
-.optionCorrect { border-color: var(--emerald) !important; background: var(--emerald-light) !important; color: var(--emerald) !important; }
-.optionWrong { border-color: var(--rose) !important; background: var(--rose-light) !important; color: var(--rose) !important; }
+.optionCorrect { border-color: var(--emerald) !important; background: var(--emerald-light) !important; }
+.optionWrong { border-color: var(--rose) !important; background: var(--rose-light) !important; }
 
 .optLetter {
   flex-shrink: 0; font-size: 11px; font-weight: 800;
@@ -80,8 +77,7 @@
   background: var(--surface2); border: 1.5px solid var(--border);
   border-radius: var(--radius-sm); padding: 0.65rem 0.85rem;
   cursor: pointer; font-size: 13px; text-align: left;
-  transition: border-color 0.12s, background 0.12s; color: var(--text);
-  width: 100%;
+  transition: border-color 0.12s, background 0.12s; color: var(--text); width: 100%;
 }
 .matchItem:hover:not(:disabled) { border-color: var(--indigo-mid); background: var(--indigo-light); }
 .matchSelected { border-color: var(--indigo-mid) !important; background: var(--indigo-light) !important; }
@@ -90,35 +86,44 @@
 .matchWrongDone { border-color: var(--rose) !important; background: var(--rose-light) !important; }
 .matchArrow { display: block; font-size: 11px; color: var(--text-muted); margin-top: 2px; }
 
-/* Text */
+/* Text input */
 .textArea {
   width: 100%; padding: 0.85rem 1rem; border: 1.5px solid var(--border);
   border-radius: var(--radius-sm); font-size: 14px; font-family: inherit;
-  resize: vertical; min-height: 100px; background: var(--surface2); color: var(--text);
-  transition: border-color 0.15s; margin-bottom: 0.6rem; display: block; line-height: 1.6;
+  resize: vertical; min-height: 110px; background: var(--surface2); color: var(--text);
+  transition: border-color 0.15s; display: block; line-height: 1.6;
 }
 .textArea:focus { outline: none; border-color: var(--indigo-mid); background: var(--surface); }
 
-.revealBox { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1.1rem; margin-top: 0.75rem; }
-.revealLabel { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--indigo); margin-bottom: 0.4rem; margin-top: 0.75rem; }
+/* Reveal box */
+.revealBox { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 1.1rem; margin-top: 0.75rem; display: flex; flex-direction: column; gap: 0.6rem; }
+.revealLabel { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--indigo); }
 .revealAnswer { font-size: 14px; line-height: 1.7; color: var(--text); }
 
-/* Keyword badges */
-.keywordRow { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.6rem; }
+/* Keywords */
+.keywordScore { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+.keywordRow { display: flex; flex-wrap: wrap; gap: 0.35rem; }
 .kwGood { font-size: 12px; padding: 2px 8px; border-radius: 20px; background: var(--emerald-light); color: var(--emerald); font-weight: 600; }
 .kwMissing { font-size: 12px; padding: 2px 8px; border-radius: 20px; background: var(--rose-light); color: var(--rose); font-weight: 600; }
-.keywordScore { font-size: 12px; color: var(--text-muted); margin-bottom: 0.75rem; }
-.correctHint { font-size: 13px; color: var(--text-muted); margin-top: 0.4rem; padding: 0.5rem 0.75rem; background: var(--surface2); border-radius: var(--radius-xs); }
+.correctHint { font-size: 13px; color: var(--text-muted); padding: 0.5rem 0.75rem; background: var(--surface2); border-radius: var(--radius-xs); }
 
-.selfMark { display: flex; align-items: center; gap: 0.6rem; margin-top: 1rem; flex-wrap: wrap; font-size: 13px; color: var(--text-muted); }
+/* Typo hints */
+.typoBox { background: var(--amber-light); border-radius: var(--radius-xs); padding: 0.6rem 0.75rem; }
+.typoHint { font-size: 12px; color: var(--amber); font-weight: 600; }
+
+/* Explanation */
+.explanationBox { margin-top: 0.6rem; padding: 0.6rem 0.85rem; background: var(--indigo-light); border-radius: var(--radius-xs); font-size: 13px; color: var(--indigo); border-left: 3px solid var(--indigo); }
+
+/* Self mark */
+.selfMark { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; font-size: 13px; color: var(--text-muted); margin-top: 0.25rem; }
 .markCorrect { background: var(--emerald); color: white; border: none; border-radius: var(--radius-sm); padding: 8px 18px; font-size: 13px; font-weight: 700; cursor: pointer; transition: opacity 0.12s; }
 .markCorrect:hover { opacity: 0.85; }
 .markWrong { background: var(--rose); color: white; border: none; border-radius: var(--radius-sm); padding: 8px 18px; font-size: 13px; font-weight: 700; cursor: pointer; transition: opacity 0.12s; }
 .markWrong:hover { opacity: 0.85; }
 
 /* Feedback */
-.feedbackGood { margin-top: 0.85rem; padding: 0.7rem 1rem; border-radius: var(--radius-sm); background: var(--emerald-light); color: var(--emerald); font-size: 14px; font-weight: 600; border-left: 3px solid var(--emerald); }
-.feedbackBad { margin-top: 0.85rem; padding: 0.7rem 1rem; border-radius: var(--radius-sm); background: var(--rose-light); color: var(--rose); font-size: 14px; font-weight: 600; border-left: 3px solid var(--rose); }
+.feedbackGood { margin-top: 0.75rem; padding: 0.7rem 1rem; border-radius: var(--radius-sm); background: var(--emerald-light); color: var(--emerald); font-size: 14px; font-weight: 600; border-left: 3px solid var(--emerald); }
+.feedbackBad { margin-top: 0.75rem; padding: 0.7rem 1rem; border-radius: var(--radius-sm); background: var(--rose-light); color: var(--rose); font-size: 14px; font-weight: 600; border-left: 3px solid var(--rose); }
 
 /* Buttons */
 .submitBtn {
@@ -128,8 +133,6 @@
 }
 .submitBtn:hover:not(:disabled) { background: var(--indigo-mid); transform: translateY(-1px); }
 .submitBtn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
-.submitBtnSecondary { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); }
-.submitBtnSecondary:hover:not(:disabled) { background: var(--border); color: var(--text); }
 
 .nextBtn {
   width: 100%; padding: 14px; background: var(--indigo); color: white;

@@ -1,0 +1,159 @@
+[
+  {
+    "id": "kriegsdienst",
+    "title": "Gewissenskonflikt: Kriegsdienst verweigern?",
+    "category": "Friedensethik",
+    "description": "Du lebst in einem Land, das einen umstrittenen Krieg führt. Du wirst eingezogen. Was tust du?",
+    "startNodeId": "start",
+    "nodes": {
+      "start": {
+        "id": "start",
+        "text": "Du erhältst den Einberufungsbescheid. Der Krieg wird von vielen als ungerecht betrachtet. Was tust du?",
+        "type": "decision",
+        "choices": [
+          { "label": "Ich leiste den Dienst ab – Pflicht ist Pflicht.", "nextId": "dienen" },
+          { "label": "Ich verweigere aus Gewissensgründen.", "nextId": "verweigerung" },
+          { "label": "Ich suche nach einem Kompromiss (z.B. Sanitätsdienst).", "nextId": "kompromiss" }
+        ]
+      },
+      "dienen": {
+        "id": "dienen",
+        "text": "Du leistst den Dienst. Im Einsatz erhältst du den Befehl, Zivilisten zu beschießen.",
+        "type": "decision",
+        "ethicalNote": "Deontologie: Welcher Pflicht folgst du – dem Staat oder dem Recht?",
+        "choices": [
+          { "label": "Ich führe den Befehl aus – Gehorsam.", "nextId": "befehl_folgen" },
+          { "label": "Ich weigere mich – das ist ein Kriegsverbrechen.", "nextId": "befehl_verweigern" }
+        ]
+      },
+      "verweigerung": {
+        "id": "verweigerung",
+        "text": "Du wirst verhaftet und vor Gericht gestellt. Deine Familie leidet unter dem sozialen Druck.",
+        "type": "decision",
+        "ethicalNote": "Tugendethik: Zeigt Zivilcourage innere Stärke – auch wenn es Konsequenzen hat?",
+        "choices": [
+          { "label": "Ich bleibe bei meiner Überzeugung.", "nextId": "standhaft" },
+          { "label": "Ich gebe nach und trete doch in den Dienst.", "nextId": "nachgegeben" }
+        ]
+      },
+      "kompromiss": {
+        "id": "kompromiss",
+        "text": "Du arbeitest als Sanitäter. Du rettest Leben – auch Soldaten beider Seiten.",
+        "type": "outcome",
+        "consequence": "positiv",
+        "summary": "Du hast einen Mittelweg gefunden: Pflichterfüllung ohne direkte Gewalt. Dies entspricht dem Prinzip des gerechten Friedens.",
+        "reflection": "Kann ein Kompromiss immer eine ethische Lösung sein?"
+      },
+      "befehl_folgen": {
+        "id": "befehl_folgen",
+        "type": "outcome",
+        "consequence": "negativ",
+        "summary": "Du hast einen völkerrechtswidrigen Befehl befolgt. Nach dem Krieg wirst du als Kriegsverbrecher angeklagt. 'Befehl ist Befehl' gilt seit Nürnberg 1945 nicht als Rechtfertigung.",
+        "reflection": "Wann hört die Gehorsamspflicht auf?"
+      },
+      "befehl_verweigern": {
+        "id": "befehl_verweigern",
+        "type": "outcome",
+        "consequence": "positiv",
+        "summary": "Du wirst degradiert, aber du hast Zivilisten gerettet. Dein Handeln entspricht dem Völkerrecht und der Menschenwürde (Art. 1 GG).",
+        "reflection": "Ist Ungehorsam manchmal moralische Pflicht?"
+      },
+      "standhaft": {
+        "id": "standhaft",
+        "type": "outcome",
+        "consequence": "gemischt",
+        "summary": "Du verbüßt eine Strafe, wirst aber später als Held der Zivilcourage anerkannt. Deine Überzeugung war stärker als der Druck.",
+        "reflection": "Was gibt einem Menschen die Kraft, für seine Überzeugungen einzustehen?"
+      },
+      "nachgegeben": {
+        "id": "nachgegeben",
+        "type": "outcome",
+        "consequence": "negativ",
+        "summary": "Du gibst nach. Der innere Konflikt bleibt dein Leben lang bestehen. Hast du dich selbst verraten?",
+        "reflection": "Gibt es Situationen, in denen Nachgeben das Richtige ist?"
+      }
+    }
+  },
+  {
+    "id": "organspende",
+    "title": "Medizinethik: Organspende entscheiden",
+    "category": "Sinnsuche",
+    "description": "Ein Familienmitglied liegt im Koma. Die Ärzte fragen nach einer Organspende-Entscheidung.",
+    "startNodeId": "start",
+    "nodes": {
+      "start": {
+        "id": "start",
+        "text": "Dein Vater ist nach einem Unfall hirntot. Er hat keinen Organspendeausweis hinterlassen. Die Ärzte warten auf deine Entscheidung. Drei Menschen könnten durch seine Organe gerettet werden.",
+        "type": "decision",
+        "choices": [
+          { "label": "Ich stimme der Spende zu – es wäre sein Wille.", "nextId": "zustimmung" },
+          { "label": "Ich lehne ab – ich kenne seinen Willen nicht sicher.", "nextId": "ablehnung" },
+          { "label": "Ich brauche mehr Zeit – Familie befragen.", "nextId": "beratung" }
+        ]
+      },
+      "zustimmung": {
+        "id": "zustimmung",
+        "type": "outcome",
+        "consequence": "positiv",
+        "summary": "Drei Leben werden gerettet. Dein Vater lebt in gewisser Weise weiter. Utilitarismus: Das größte Wohl für die größte Zahl.",
+        "reflection": "Wie viel Gewicht hat der mutmaßliche Wille eines Verstorbenen?"
+      },
+      "ablehnung": {
+        "id": "ablehnung",
+        "type": "outcome",
+        "consequence": "gemischt",
+        "summary": "Du hast die Würde und Integrität deines Vaters geschützt. Drei Menschen auf der Warteliste sterben möglicherweise. Deontologie: Körper als Selbstzweck.",
+        "reflection": "Hat der Mensch das Recht, über seinen Körper nach dem Tod zu bestimmen?"
+      },
+      "beratung": {
+        "id": "beratung",
+        "text": "Du befragst die Familie. Mutter ist dafür, Geschwister dagegen. Es gibt keinen Konsens.",
+        "type": "decision",
+        "choices": [
+          { "label": "Mehrheitsentscheidung: Mutter hat Recht – ich stimme zu.", "nextId": "zustimmung" },
+          { "label": "Im Zweifel für den Schutz – ich lehne ab.", "nextId": "ablehnung" }
+        ]
+      }
+    }
+  },
+  {
+    "id": "umwelt_konsum",
+    "title": "Nachhaltigkeitsethik: Der billige Kauf",
+    "category": "Friedensethik",
+    "description": "Du kannst ein günstiges T-Shirt kaufen – hergestellt unter fragwürdigen Bedingungen.",
+    "startNodeId": "start",
+    "nodes": {
+      "start": {
+        "id": "start",
+        "text": "Du siehst ein T-Shirt für 5€. Es stammt aus einer Fabrik in Bangladesch mit Berichten über Kinderarbeit und gefährliche Arbeitsbedingungen. Was tust du?",
+        "type": "decision",
+        "choices": [
+          { "label": "Ich kaufe es – ich kann keine Weltprobleme lösen.", "nextId": "kaufen" },
+          { "label": "Ich kaufe ein faires, teureres Produkt.", "nextId": "fair" },
+          { "label": "Ich kaufe gar nichts – ich habe genug Klamotten.", "nextId": "verzicht" }
+        ]
+      },
+      "kaufen": {
+        "id": "kaufen",
+        "type": "outcome",
+        "consequence": "negativ",
+        "summary": "Du sparst Geld, stützt aber ein System, das auf Ausbeutung basiert. Strukturelle Gewalt: Ungerechte wirtschaftliche Strukturen werden durch Nachfrage aufrechterhalten.",
+        "reflection": "Trägt jeder Konsument moralische Mitverantwortung?"
+      },
+      "fair": {
+        "id": "fair",
+        "type": "outcome",
+        "consequence": "positiv",
+        "summary": "Du zahlst mehr, aber dein Kauf stärkt faire Arbeitsbedingungen. Dein individuelles Handeln hat kollektive Wirkung – Konsumethik in der Praxis.",
+        "reflection": "Kann Konsum politisch sein?"
+      },
+      "verzicht": {
+        "id": "verzicht",
+        "type": "outcome",
+        "consequence": "positiv",
+        "summary": "Suffizienz: Das Nicht-Kaufen kann die nachhaltigste Entscheidung sein. Weniger Konsum = weniger Ressourcenverbrauch und weniger Ausbeutung.",
+        "reflection": "Was ist die moralisch stärkste Form des Widerstands gegen unethische Produktion?"
+      }
+    }
+  }
+]

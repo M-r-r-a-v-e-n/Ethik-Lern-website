@@ -1,16 +1,19 @@
-<!DOCTYPE html>
-<html lang="de" data-theme="dark">
+<!doctype html>
+<html lang="de">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Ethik Quali</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,600&display=swap" rel="stylesheet" />
+    <meta name="description" content="Ethik Lernapp – Quali-Vorbereitung mit Spaced Repetition, Quiz und Szenarien" />
+    <meta name="theme-color" content="#4338ca" />
+    <!-- Accessibility CSS -->
+    <link rel="stylesheet" href="/accessibility.css" />
+    <title>Ethik Lernapp</title>
   </head>
   <body>
-    <div id="root"></div>
+    <!-- Skip to main content (WCAG 2.1 AA) -->
+    <a class="skip-link" href="#main-content">Zum Hauptinhalt springen</a>
+    <div id="root" role="application" aria-label="Ethik Lernapp"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

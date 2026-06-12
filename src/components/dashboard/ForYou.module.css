@@ -1,0 +1,83 @@
+.root { display: flex; flex-direction: column; gap: 1.1rem; }
+
+.greeting {
+  display: flex; align-items: center; gap: 1rem;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.25rem 1.5rem;
+  box-shadow: var(--shadow);
+}
+.greetEmoji { font-size: 2.25rem; flex-shrink: 0; }
+.greetTitle { font-size: 18px; font-weight: 800; color: var(--text); }
+.greetSub { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+/* Due CTA */
+.dueCta {
+  display: flex; align-items: center; gap: 1rem;
+  background: linear-gradient(135deg, var(--indigo-light), var(--surface));
+  border: 2px solid var(--indigo);
+  border-radius: var(--radius);
+  padding: 1rem 1.25rem;
+  cursor: pointer; text-align: left; width: 100%;
+  transition: transform 0.12s, box-shadow 0.12s;
+}
+.dueCta:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.dueIcon { font-size: 1.6rem; flex-shrink: 0; }
+.dueName { font-size: 15px; font-weight: 700; color: var(--indigo); }
+.dueSub { font-size: 12px; color: var(--text-muted); margin-top: 1px; }
+.dueArrow { margin-left: auto; font-size: 18px; color: var(--indigo); }
+
+/* Section head */
+.sectionHead {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.7px; color: var(--text-faint);
+  display: flex; align-items: center; gap: 0.75rem;
+}
+.sectionLink {
+  background: none; border: none; color: var(--indigo);
+  font-size: 11px; font-weight: 700; cursor: pointer; padding: 0;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+
+/* Rec cards */
+.recGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.55rem; }
+.recCard {
+  display: flex; align-items: center; gap: 0.75rem;
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); padding: 0.85rem 1rem;
+  cursor: pointer; text-align: left; transition: all 0.12s;
+}
+.recCard:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); border-color: var(--indigo-mid); }
+.recCardWeak { border-top: 3px solid var(--rose); }
+.recCardNext { border-top: 3px solid var(--emerald); }
+.recCardWrong { border-top: 3px solid var(--amber); }
+.recCardMini { border-top: 3px solid var(--indigo); }
+.recIcon { font-size: 1.4rem; flex-shrink: 0; }
+.recText { min-width: 0; }
+.recName { font-size: 13px; font-weight: 700; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.recSub { font-size: 11px; color: var(--text-muted); margin-top: 1px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+/* Progress */
+.progressCards { display: flex; flex-direction: column; gap: 0.55rem; }
+.progressCard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 0.85rem 1rem; }
+.progressCatRow { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+.progressCatName { font-size: 13px; font-weight: 600; color: var(--text); }
+.progressCatPct { font-size: 12px; color: var(--text-muted); }
+.progressBarWrap { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.progressBar { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+.bar_rose { background: var(--rose); }
+.bar_emerald { background: var(--emerald); }
+.bar_indigo { background: var(--indigo); }
+.bar_amber { background: var(--amber); }
+
+/* Recent sessions */
+.recentRow { display: flex; gap: 0.5rem; align-items: flex-end; }
+.recentDot { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.recentBar { width: 20px; border-radius: 3px 3px 0 0; transition: height 0.3s; }
+.recentPct { font-size: 10px; color: var(--text-faint); font-weight: 600; }
+
+/* Badges */
+.badgeRow { display: flex; gap: 0.75rem; flex-wrap: wrap; }
+.badgeDot { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.badgeName { font-size: 10px; color: var(--text-muted); text-align: center; max-width: 60px; }

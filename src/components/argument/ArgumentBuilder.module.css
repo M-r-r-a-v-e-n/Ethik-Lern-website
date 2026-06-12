@@ -1,0 +1,63 @@
+.root { display: flex; flex-direction: column; gap: 1rem; }
+.header { }
+.title { font-size: 18px; font-weight: 800; color: var(--text); margin-bottom: 0.3rem; }
+.sub { font-size: 14px; color: var(--text-muted); margin-bottom: 0.25rem; }
+.hint { font-size: 12px; color: var(--text-faint); font-style: italic; }
+
+/* Blocks */
+.blockList { display: flex; flex-direction: column; gap: 0.5rem; }
+.block {
+  background: var(--surface); border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm); padding: 0.85rem;
+  cursor: grab; transition: all 0.12s;
+  border-left: 4px solid var(--border);
+}
+.block:active { cursor: grabbing; opacity: 0.75; }
+.block_indigo { border-left-color: var(--indigo); }
+.block_emerald { border-left-color: var(--emerald); }
+.block_amber { border-left-color: var(--amber); }
+.block_rose { border-left-color: var(--rose); }
+.blockCorrect { background: var(--emerald-light); border-color: var(--emerald); cursor: default; }
+.blockWrong { background: var(--rose-light); border-color: var(--rose); cursor: default; }
+
+.blockHeader { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+.dragHandle { color: var(--text-faint); font-size: 16px; }
+.blockEmoji { font-size: 1rem; }
+.blockLabel { font-size: 13px; font-weight: 800; color: var(--text); }
+.blockDesc { font-size: 11px; color: var(--text-faint); margin-left: auto; }
+.posIcon { font-size: 14px; font-weight: 700; margin-left: auto; }
+
+.blockInput {
+  width: 100%; padding: 0.6rem 0.8rem;
+  background: var(--surface2); border: 1.5px solid var(--border);
+  border-radius: var(--radius-xs); font-size: 13px;
+  font-family: inherit; color: var(--text); resize: vertical;
+  transition: border-color 0.12s;
+}
+.blockInput:focus { outline: none; border-color: var(--indigo-mid); background: var(--surface); }
+.blockInput:disabled { cursor: default; opacity: 0.85; }
+
+.rubricHints { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.4rem; }
+.rubricHint { font-size: 11px; color: var(--amber); background: var(--amber-light); padding: 2px 7px; border-radius: 20px; }
+
+/* Actions */
+.submitBtn { padding: 0.8rem; background: var(--indigo); color: white; border: none; border-radius: var(--radius-sm); font-size: 14px; font-weight: 700; cursor: pointer; transition: background 0.12s; }
+.submitBtn:hover { background: var(--indigo-mid); }
+
+/* Feedback */
+.feedback { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem; }
+.scoreRow { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
+.scorePct { font-size: 2.5rem; font-weight: 900; }
+.scoreGood { color: var(--emerald); }
+.scoreOk { color: var(--amber); }
+.scoreBad { color: var(--rose); }
+.scoreLabel { font-size: 14px; font-weight: 700; color: var(--text); }
+.scoreDetail { font-size: 12px; color: var(--text-muted); }
+.feedbackGood { padding: 0.6rem 0.85rem; background: var(--emerald-light); color: var(--emerald); border-radius: var(--radius-xs); font-size: 13px; font-weight: 600; border-left: 3px solid var(--emerald); }
+.feedbackBad { padding: 0.6rem 0.85rem; background: var(--rose-light); color: var(--rose); border-radius: var(--radius-xs); font-size: 13px; font-weight: 600; border-left: 3px solid var(--rose); margin-top: 0.5rem; }
+.feedbackActions { display: flex; gap: 0.5rem; margin-top: 0.85rem; flex-wrap: wrap; }
+.resetBtn { padding: 0.6rem 1rem; background: var(--surface2); border: 1.5px solid var(--border); border-radius: var(--radius-sm); font-size: 13px; font-weight: 600; color: var(--text-muted); cursor: pointer; }
+.resetBtn:hover { border-color: var(--indigo-mid); color: var(--text); }
+.saveBtn { padding: 0.6rem 1rem; background: var(--emerald); color: white; border: none; border-radius: var(--radius-sm); font-size: 13px; font-weight: 700; cursor: pointer; }
+.saveBtn:hover { opacity: 0.85; }
+.savedLabel { font-size: 13px; font-weight: 700; color: var(--emerald); padding: 0.6rem 0; }
