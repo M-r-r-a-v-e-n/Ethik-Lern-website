@@ -1,12 +1,12 @@
 /**
- * Fächer-Metadaten
+ * Fächer-Metadaten – keine Flaggen-Emojis
  */
 export const SUBJECTS = [
   {
     id: 'deutsch',
     label: 'Deutsch',
     labelEn: 'German',
-    icon: '🇩🇪',
+    icon: '✏️',
     color: 'rose',
     desc: 'Grammatik, Literatur, Schreiben, Rechtschreibung',
   },
@@ -22,7 +22,7 @@ export const SUBJECTS = [
     id: 'english',
     label: 'Englisch',
     labelEn: 'English',
-    icon: '🇬🇧',
+    icon: '📘',
     color: 'emerald',
     desc: 'Grammar, Writing, Reading, Culture',
   },

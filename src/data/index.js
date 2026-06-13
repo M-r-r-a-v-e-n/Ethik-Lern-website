@@ -5,6 +5,7 @@ import { DEUTSCH_TOPICS, DEUTSCH_QUESTIONS } from './deutsch.js';
 import { ENGLISH_TOPICS, ENGLISH_QUESTIONS } from './english.js';
 import { ETHIK_EXTENDED_TOPICS, ETHIK_EXTENDED_QUESTIONS } from './ethik_extended.js';
 import { ETHIK_NEU_TOPICS, ETHIK_NEU_QUESTIONS } from './ethik_neu.js';
+import { ETHIK_SPRACHE_TOPICS, ETHIK_SPRACHE_QUESTIONS } from './ethik_sprache.js';
 
 import { TOPICS as ETHIK_ORIGINAL_TOPICS, ALL_QUESTIONS as ETHIK_ORIGINAL_QUESTIONS } from './content.js';
 
@@ -19,6 +20,7 @@ export const ALL_TOPICS = [
   ...taggedEthikTopics,
   ...ETHIK_EXTENDED_TOPICS,
   ...ETHIK_NEU_TOPICS,
+  ...ETHIK_SPRACHE_TOPICS,
   ...DEUTSCH_TOPICS,
   ...ENGLISH_TOPICS,
 ];
@@ -34,6 +36,7 @@ export const ALL_QUESTIONS_MASTER = [
   ...taggedEthikQuestions,
   ...ETHIK_EXTENDED_QUESTIONS,
   ...ETHIK_NEU_QUESTIONS,
+  ...ETHIK_SPRACHE_QUESTIONS,
   ...DEUTSCH_QUESTIONS,
   ...ENGLISH_QUESTIONS,
 ];
@@ -80,8 +83,8 @@ export { CATEGORIES, CATEGORY_COLORS } from './content.js';
 export const SUBJECTS_DATA = {
   deutsch: { topics: DEUTSCH_TOPICS, questions: DEUTSCH_QUESTIONS },
   ethik: {
-    topics: [...taggedEthikTopics, ...ETHIK_EXTENDED_TOPICS, ...ETHIK_NEU_TOPICS],
-    questions: [...taggedEthikQuestions, ...ETHIK_EXTENDED_QUESTIONS, ...ETHIK_NEU_QUESTIONS],
+    topics: [...taggedEthikTopics, ...ETHIK_EXTENDED_TOPICS, ...ETHIK_NEU_TOPICS, ...ETHIK_SPRACHE_TOPICS],
+    questions: [...taggedEthikQuestions, ...ETHIK_EXTENDED_QUESTIONS, ...ETHIK_NEU_QUESTIONS, ...ETHIK_SPRACHE_QUESTIONS],
   },
   english: { topics: ENGLISH_TOPICS, questions: ENGLISH_QUESTIONS },
 };

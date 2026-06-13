@@ -135,12 +135,17 @@ export function ForYou({ userData, onNavigate, displayName }) {
           <button type="button" className={`${styles.recCard} ${styles.recWeak}`}
             onClick={() => onNavigate('quiz', {
               questions: ALL_QUESTIONS.filter((q) => safeArr(q.topicIds).some((t) => weakTopics.map((x) => x.id).includes(t))),
-              title: 'Schwachen Themen aufholen', mode: 'weak',
+              title: 'Schwachstellen aufholen', mode: 'weak',
             })}>
             <span className={styles.recIcon}>📉</span>
             <div className={styles.recBody}>
-              <div className={styles.recTitle}>Schwächen aufholen</div>
-              <div className={styles.recDesc}>{weakTopics.map((t) => t.title).join(' · ')}</div>
+              <div className={styles.recTitle}>Schwachstellen aufholen</div>
+              <div className={styles.recDesc}>
+                {weakTopics.map((t) => `${t.icon ?? ''} ${t.title}`).join(' · ')}
+              </div>
+              <div style={{ fontSize: 10, color: 'var(--rose)', marginTop: 3, fontWeight: 700 }}>
+                {weakTopics.reduce((s, t) => s + t.wrongCount, 0)} Fehler in diesen Themen
+              </div>
             </div>
             <span className={styles.recArrow}>→</span>
           </button>
@@ -173,12 +178,31 @@ export function ForYou({ userData, onNavigate, displayName }) {
             onClick={() => onNavigate('quiz', 'wrong')}>
             <span className={styles.recIcon}>🔁</span>
             <div className={styles.recBody}>
-              <div className={styles.recTitle}>Fehler wiederholen</div>
-              <div className={styles.recDesc}>{safeArr(wrongIds).length} gespeicherte Fehler</div>
+              <div className={styles.recTitle}>Alle Fehler wiederholen</div>
+              <div className={styles.recDesc}>{safeArr(wrongIds).length} gespeicherte Fehler aus allen Fächern</div>
             </div>
             <span className={styles.recArrow}>→</span>
           </button>
         )}
+
+        {/* Per-subject wrong-question shortcuts */}
+        {SUBJECTS.map((s) => {
+          const subWrong = ALL_QUESTIONS.filter((q) =>
+            q.subjectId === s.id && safeArr(wrongIds).includes(q.id)
+          );
+          if (subWrong.length < 2) return null;
+          return (
+            <button key={`wrong_${s.id}`} type="button" className={`${styles.recCard} ${styles.recWrong}`}
+              onClick={() => onNavigate('quiz', { questions: subWrong, title: `${s.label}: Fehler`, mode: 'wrong' })}>
+              <span className={styles.recIcon}>{s.icon}</span>
+              <div className={styles.recBody}>
+                <div className={styles.recTitle}>{s.label}: Fehler wiederholen</div>
+                <div className={styles.recDesc}>{subWrong.length} Fehler in {s.label}</div>
+              </div>
+              <span className={styles.recArrow}>→</span>
+            </button>
+          );
+        })}
       </div>
 
       {/* ── Letzte Quizze ── */}

@@ -62,6 +62,9 @@ function InnerApp() {
   const [quizTitle, setQuizTitle] = useState('');
   const [quizKey, setQuizKey] = useState(0);
   const [lastResult, setLastResult] = useState(null);
+  // ── IDs die in dieser App-Session korrekt beantwortet wurden ──
+  // Werden beim nächsten Quiz gefiltert → keine Wiederholungen von bekannten Fragen
+  const [sessionCorrectIds, setSessionCorrectIds] = useState(new Set());
   const [theme, setTheme] = useState(() => { try { return localStorage.getItem('eq_theme') || 'dark'; } catch { return 'dark'; } });
   const [showUserMenu, setShowUserMenu] = useState(false);
   const lastQuizPayloadRef = useRef('mini');
@@ -85,25 +88,39 @@ function InnerApp() {
   if (!user && isOnline) return <AuthScreen />;
 
   // ── Quiz prep ───────────────────────────────────────────
+  // correctIds = Fragen, die der Nutzer in dieser Session schon richtig beantwortet hat
+  // Diese werden gefiltert damit keine Doppelungen kommen
   function prepareQuiz(payload) {
     let qs = [], title = 'Quiz', mode = 'mini';
+    // IDs die in dieser Session bereits richtig beantwortet wurden
+    const seen = sessionCorrectIds;
+
+    // Hilfsfunktion: richtig beantwortete Fragen rausfiltern AUSSER bei gezielten Modi
+    function filterSeen(questions, skipFilter = false) {
+      if (skipFilter || seen.size === 0) return questions;
+      const filtered = questions.filter((q) => !seen.has(q.id));
+      return filtered.length > 0 ? filtered : questions;
+    }
+
     if (payload === 'mini') {
       const ids = getMiniIds();
-      qs = safeArr(ALL_QUESTIONS).filter((q) => ids.includes(q.id));
+      qs = shuffle(filterSeen(safeArr(ALL_QUESTIONS).filter((q) => ids.includes(q.id))));
       title = 'Mini-Quiz'; mode = 'mini';
     } else if (payload === 'full') {
-      qs = shuffle(ALL_QUESTIONS); title = 'Alle Fragen'; mode = 'full';
+      qs = shuffle(filterSeen(ALL_QUESTIONS));
+      title = 'Alle Fragen'; mode = 'full';
     } else if (payload === 'wrong') {
+      // Fehler-Quiz: KEIN Filter – man soll Fehler üben auch wenn schon richtig
       qs = safeArr(ALL_QUESTIONS).filter((q) => safeArr(wrongIds).includes(q.id));
       title = 'Fehler-Quiz'; mode = 'wrong';
     } else if (payload === 'textonly') {
-      qs = shuffle(safeArr(ALL_QUESTIONS).filter((q) => q.type === 'text'));
+      qs = shuffle(filterSeen(safeArr(ALL_QUESTIONS).filter((q) => q.type === 'text')));
       title = 'Nur Schreiben'; mode = 'textonly';
     } else if (payload === 'review') {
       qs = dueQuestions.slice(0, 20);
       title = 'Wiederholung fälliger Karten'; mode = 'review';
     } else if (payload && typeof payload === 'object' && Array.isArray(payload.questions)) {
-      qs = shuffle(payload.questions.filter(Boolean));
+      qs = shuffle(filterSeen(payload.questions.filter(Boolean)));
       title = payload.title ?? 'Quiz'; mode = payload.mode ?? 'topic';
     }
     if (qs.length === 0) { alert('Keine Fragen für dieses Quiz.'); return null; }
@@ -147,6 +164,12 @@ function InnerApp() {
     const textCorrect = allQs.filter((q, i) => q?.type === 'text' && result.streak?.[i] === 'c').length;
     updateWrongIds(wrongQIds, corrected);
     addSession(correct, wrong.length, quizModeRef.current, result.bestStreak ?? 0, textCorrect);
+    // ── Merke richtig beantwortete Fragen für diese App-Session
+    setSessionCorrectIds((prev) => {
+      const next = new Set(prev);
+      corrected.forEach((id) => next.add(id));
+      return next;
+    });
     setLastResult({ ...result, correct, wrong, allQuestions: allQs });
     setScreen('result');
   }
@@ -375,8 +398,8 @@ function LearnScreen({ topicId, onSelectTopic, onBack, onQuiz, markLearned, lear
 
   const subjectTabs = [
     { id: 'ethik', label: 'Ethik', icon: '⚖️' },
-    { id: 'deutsch', label: 'Deutsch', icon: '🇩🇪' },
-    { id: 'english', label: 'English', icon: '🇬🇧' },
+    { id: 'deutsch', label: 'Deutsch', icon: '✏️' },
+    { id: 'english', label: 'English', icon: '📘' },
   ];
 
   return (
