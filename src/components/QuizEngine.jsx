@@ -288,11 +288,13 @@ function TextQuestion({ q, onAnswer }) {
     const result = analyzeAnswer(input, answerStr, q.keywords ?? []);
     setAnalysis(result);
     setRevealed(true);
-    if (result.score >= 0.7) {
+    // Nutze weightedScore statt score – bewertet Kernbegriffe höher
+    const ws = result.weightedScore ?? result.score;
+    if (ws >= 0.65) {
       setMarked(true);
-      onAnswer(true, true, result.score >= 0.9 ? 5 : 4);
+      onAnswer(true, true, ws >= 0.9 ? 5 : 4);
     }
-    // else wait for self-assessment
+    // else: Selbsteinschätzung
   }
 
   function manualMark(val) {
@@ -301,14 +303,17 @@ function TextQuestion({ q, onAnswer }) {
     onAnswer(val, true, val ? 3 : 1);
   }
 
+  const ws = analysis ? (analysis.weightedScore ?? analysis.score) : 0;
+  const autoCorrect = marked === true && analysis && ws >= 0.65;
+
   return (
     <div>
       <textarea
         className={styles.textArea}
         value={input}
         onChange={(e) => setInput(e.target.value)}
-        placeholder="Schreibe deine Antwort hier..."
-        rows={5}
+        placeholder="Schreibe deine Antwort hier – Stichworte reichen..."
+        rows={4}
         disabled={revealed}
       />
 
@@ -320,42 +325,62 @@ function TextQuestion({ q, onAnswer }) {
 
       {revealed && analysis && (
         <div className={styles.revealBox}>
-          {/* Keyword badges */}
+
+          {/* Score bar */}
+          <div className={styles.scoreBarWrap}>
+            <div className={styles.scoreBarFill}
+              style={{
+                width: `${Math.round(ws * 100)}%`,
+                background: ws >= 0.65 ? 'var(--emerald)' : ws >= 0.4 ? 'var(--amber)' : 'var(--rose)',
+              }}
+            />
+            <span className={styles.scoreBarLabel}>{Math.round(ws * 100)}%</span>
+          </div>
+
+          {/* Keyword analysis – only show IMPORTANT ones */}
           {analysis.total > 0 && (
-            <div>
-              <div className={styles.keywordScore}>
-                Schlüsselbegriffe erkannt: <strong>{analysis.matched.length} / {analysis.total}</strong>
-                {analysis.score >= 0.7 ? ' ✓' : ' – schau auf die Musterlösung'}
+            <div className={styles.kwSection}>
+              <div className={styles.kwTitle}>
+                {ws >= 0.65 ? '✓ Wichtige Begriffe erkannt' : 'Fehlende Kernbegriffe:'}
               </div>
               <div className={styles.keywordRow}>
-                {analysis.matched.map((kw) => <span key={kw} className={styles.kwGood}>✓ {kw}</span>)}
-                {analysis.missing.map((kw) => <span key={kw} className={styles.kwMissing}>✗ {kw}</span>)}
+                {analysis.matched.slice(0, 6).map((kw) => (
+                  <span key={kw} className={styles.kwGood}>✓ {kw}</span>
+                ))}
+                {analysis.missing.slice(0, 4).map((kw) => (
+                  <span key={kw} className={styles.kwMissing}>✗ {kw}</span>
+                ))}
               </div>
             </div>
           )}
 
-          {/* Typo hints */}
-          {analysis.typos?.length > 0 && (
-            <div className={styles.typoBox}>
-              {analysis.typos.map((t, i) => <div key={i} className={styles.typoHint}>✏️ {t.hint}</div>)}
+          {/* Explanation WHY – shown when wrong */}
+          {ws < 0.65 && q.explanation && (
+            <div className={styles.explanationBox}>
+              💡 <strong>Erklärung:</strong> {q.explanation}
             </div>
           )}
 
-          {/* Model answer */}
+          {/* Model answer – always shown */}
           <div className={styles.revealLabel}>Musterlösung:</div>
           <div className={styles.revealAnswer}>{answerStr}</div>
 
-          {/* Feedback */}
-          {marked === true && <p className={styles.feedbackGood}>✓ Richtig! Gut gemacht.</p>}
+          {/* Auto-correct feedback */}
+          {marked === true && <p className={styles.feedbackGood}>✓ Gut! Die wichtigsten Begriffe waren dabei.</p>}
 
-          {marked === null && analysis.score < 0.7 && (
+          {/* Self-assessment when not auto-correct */}
+          {marked === null && ws < 0.65 && (
             <div className={styles.selfMark}>
-              <span>War deine Antwort inhaltlich trotzdem richtig?</span>
+              <span>Hattest du den Kern inhaltlich richtig?</span>
               <button type="button" className={styles.markCorrect} onClick={() => manualMark(true)}>✓ Ja</button>
               <button type="button" className={styles.markWrong} onClick={() => manualMark(false)}>✗ Nein</button>
             </div>
           )}
-          {marked === false && <p className={styles.feedbackBad}>✗ Noch nicht ganz – lerne es nochmal.</p>}
+          {marked === false && (
+            <p className={styles.feedbackBad}>
+              ✗ Merke dir die Musterlösung – beim nächsten Mal schaffst du es!
+            </p>
+          )}
         </div>
       )}
     </div>

@@ -177,7 +177,7 @@ function InnerApp() {
 
       {/* Nav */}
       <nav className={styles.nav}>
-        <span className={styles.navBrand}>📚 Ethik Quali</span>
+        <span className={styles.navBrand}>📚 Quali Lernen</span>
         <div className={styles.navRight}>
           <button type="button" className={styles.themeBtn} onClick={() => setTheme((t) => t === 'dark' ? 'light' : 'dark')}>{theme === 'dark' ? '☀️' : '🌙'}</button>
           <div className={styles.userMenu}>
@@ -350,10 +350,34 @@ function InnerApp() {
 // ── Learn Screen ───────────────────────────────────────────
 function LearnScreen({ topicId, onSelectTopic, onBack, onQuiz, markLearned, learnedTopics = [] }) {
   const topic = topicId ? TOPICS.find((t) => t.id === topicId) : null;
+  const [activeSubject, setActiveSubject] = React.useState('ethik');
 
   useEffect(() => {
     if (topicId && typeof markLearned === 'function') markLearned(topicId);
   }, [topicId, markLearned]);
+
+  // subject-filtered topics computed inline
+
+  // Filter topics by active subject
+  const subjectTopics = TOPICS.filter((t) => {
+    if (activeSubject === 'ethik') return (t.subjectId ?? 'ethik') === 'ethik';
+    return t.subjectId === activeSubject;
+  });
+  const subjectCats = [...new Set(subjectTopics.map((t) => t.category).filter(Boolean))];
+
+  const subjectColorMap = { deutsch: 'rose', ethik: 'indigo', english: 'emerald' };
+  const catColor = (cat) => {
+    // Try to derive color from subject
+    const first = subjectTopics.find((t) => t.category === cat);
+    if (first) return subjectColorMap[first.subjectId ?? 'ethik'] || 'indigo';
+    return colorMap[cat] || 'indigo';
+  };
+
+  const subjectTabs = [
+    { id: 'ethik', label: 'Ethik', icon: '⚖️' },
+    { id: 'deutsch', label: 'Deutsch', icon: '🇩🇪' },
+    { id: 'english', label: 'English', icon: '🇬🇧' },
+  ];
 
   return (
     <div>
@@ -361,14 +385,33 @@ function LearnScreen({ topicId, onSelectTopic, onBack, onQuiz, markLearned, lear
         <button type="button" className={styles.backBtn} onClick={topic ? () => onSelectTopic(null) : onBack}>
           ← {topic ? 'Alle Themen' : 'Zurück'}
         </button>
-        <h2 className={styles.screenTitle}>{topic ? `${topic.icon} ${topic.title}` : 'Themen lernen'}</h2>
+        <h2 className={styles.screenTitle}>{topic ? `${topic.icon} ${topic.title}` : '📖 Themen lernen'}</h2>
       </div>
 
       {!topic && (
         <div>
-          {CATEGORIES.map((cat) => {
-            const catTopics = TOPICS.filter((t) => t.category === cat);
-            const color = colorMap[cat] || 'indigo';
+          {/* Subject Tabs */}
+          <div style={{ display: 'flex', gap: '0.4rem', marginBottom: '1rem', background: 'var(--surface2)', borderRadius: 'var(--radius-sm)', padding: '4px' }}>
+            {subjectTabs.map((tab) => (
+              <button key={tab.id} type="button"
+                style={{
+                  flex: 1, padding: '0.45rem 0.5rem', border: 'none', cursor: 'pointer',
+                  borderRadius: 'var(--radius-xs)', fontSize: 13, fontWeight: 700,
+                  background: activeSubject === tab.id ? 'var(--surface)' : 'transparent',
+                  color: activeSubject === tab.id ? 'var(--text)' : 'var(--text-muted)',
+                  boxShadow: activeSubject === tab.id ? 'var(--shadow)' : 'none',
+                  transition: 'all 0.15s',
+                }}
+                onClick={() => setActiveSubject(tab.id)}
+              >
+                {tab.icon} {tab.label}
+              </button>
+            ))}
+          </div>
+
+          {subjectCats.map((cat) => {
+            const catTopics = subjectTopics.filter((t) => t.category === cat);
+            const color = catColor(cat);
             return (
               <div key={cat} className={styles.catSection}>
                 <div className={styles.catSectionHeader}>

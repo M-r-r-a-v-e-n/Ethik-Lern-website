@@ -140,3 +140,19 @@
   cursor: pointer; transition: background 0.12s, transform 0.1s; letter-spacing: 0.2px;
 }
 .nextBtn:hover { background: var(--indigo-mid); transform: translateY(-1px); }
+
+/* ── Score bar (TextQuestion) ── */
+.scoreBarWrap {
+  position: relative; height: 8px; background: var(--surface3);
+  border-radius: 4px; overflow: hidden; margin-bottom: 0.5rem;
+}
+.scoreBarFill { height: 100%; border-radius: 4px; transition: width 0.5s ease; }
+.scoreBarLabel {
+  position: absolute; right: 4px; top: 50%; transform: translateY(-50%);
+  font-size: 9px; font-weight: 700; color: var(--text); display: none;
+}
+
+/* ── Keyword section ── */
+.kwSection { margin: 0.25rem 0; }
+.kwTitle { font-size: 11px; font-weight: 700; color: var(--text-muted); margin-bottom: 0.4rem; }
+.keywordRow { display: flex; flex-wrap: wrap; gap: 0.3rem; }

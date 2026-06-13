@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
-import { TOPICS_DEDUPED as TOPICS, ALL_QUESTIONS_DEDUPED as ALL_QUESTIONS } from '../../data/index.js';
-import { CATEGORIES, CATEGORY_COLORS } from '../../data/content.js';
+import React, { useState, useMemo } from 'react';
+import { TOPICS_DEDUPED as TOPICS, ALL_QUESTIONS_DEDUPED as ALL_QUESTIONS, getTopicsBySubject, getCategoriesBySubject } from '../../data/index.js';
+import { SUBJECTS } from '../../data/subjects.js';
 import styles from './CustomPathBuilder.module.css';
 
-const colorMap = { Friedensethik: 'rose', Sinnsuche: 'emerald', Weltreligionen: 'indigo' };
+const subjectColorMap = { deutsch: 'rose', ethik: 'indigo', english: 'emerald' };
 
 export function CustomPathBuilder({ onStart, onBack }) {
   const [selected, setSelected] = useState([]);
-  const [mode, setMode] = useState('all'); // 'all' | 'textonly' | 'mc'
+  const [mode, setMode] = useState('all');
+  const [activeSubject, setActiveSubject] = useState('all');
 
   function toggle(topicId) {
     setSelected((prev) =>
@@ -76,45 +77,72 @@ export function CustomPathBuilder({ onStart, onBack }) {
       <div className={styles.bulkRow}>
         <button type="button" className={styles.bulkBtn} onClick={selectAll}>Alle wählen</button>
         <button type="button" className={styles.bulkBtn} onClick={selectNone}>Keine</button>
-        <span className={styles.selectedCount}>{selected.length} Themen, {totalQs} Fragen</span>
+        <span className={styles.selectedCount}>{selected.length} Themen · {totalQs} Fragen</span>
       </div>
 
-      {/* Topic checkboxes */}
+      {/* Subject filter tabs */}
+      <div style={{ display: 'flex', gap: '0.35rem', marginBottom: '0.75rem', flexWrap: 'wrap' }}>
+        {[{ id: 'all', label: '📋 Alle Fächer' }, ...SUBJECTS.map((s) => ({ id: s.id, label: `${s.icon} ${s.label}` }))].map((tab) => (
+          <button key={tab.id} type="button"
+            style={{
+              padding: '5px 12px', border: '1.5px solid var(--border)', borderRadius: 'var(--radius-xs)',
+              fontSize: 12, fontWeight: 700, cursor: 'pointer', transition: 'all 0.12s',
+              background: activeSubject === tab.id ? 'var(--indigo)' : 'var(--surface2)',
+              color: activeSubject === tab.id ? 'white' : 'var(--text-muted)',
+              borderColor: activeSubject === tab.id ? 'var(--indigo)' : 'var(--border)',
+            }}
+            onClick={() => setActiveSubject(tab.id)}
+          >{tab.label}</button>
+        ))}
+      </div>
+
+      {/* Topic checkboxes – filtered by subject */}
       <div className={styles.topicList}>
-        {CATEGORIES.map((cat) => {
-          const catTopics = TOPICS.filter((t) => t.category === cat);
-          const color = colorMap[cat] || 'indigo';
-          const allCatSelected = catTopics.every((t) => selected.includes(t.id));
-          return (
-            <div key={cat} className={styles.catBlock}>
-              <button type="button" className={`${styles.catHeader} ${styles[`cat_${color}`]}`} onClick={() => selectCategory(cat)}>
-                <span className={`${styles.checkBox} ${allCatSelected ? styles.checkBoxChecked : ''}`}>
-                  {allCatSelected ? '☑' : '☐'}
-                </span>
-                <span>{cat}</span>
-              </button>
-              {catTopics.map((topic) => {
-                const isSelected = selected.includes(topic.id);
-                const topicQs = ALL_QUESTIONS.filter((q) => Array.isArray(q.topicIds) && q.topicIds.includes(topic.id));
-                return (
-                  <button
-                    key={topic.id}
-                    type="button"
-                    className={`${styles.topicItem} ${isSelected ? styles.topicItemSelected : ''}`}
-                    onClick={() => toggle(topic.id)}
-                  >
-                    <span className={`${styles.checkBox} ${isSelected ? styles.checkBoxChecked : ''}`}>
-                      {isSelected ? '☑' : '☐'}
-                    </span>
-                    <span className={styles.topicIcon}>{topic.icon}</span>
-                    <span className={styles.topicName}>{topic.title}</span>
-                    <span className={styles.topicQCount}>{topicQs.length} Fragen</span>
-                  </button>
-                );
-              })}
-            </div>
+        {(() => {
+          const filteredTopics = activeSubject === 'all' ? TOPICS : TOPICS.filter((t) =>
+            activeSubject === 'ethik' ? (t.subjectId ?? 'ethik') === 'ethik' : t.subjectId === activeSubject
           );
-        })}
+          const cats = [...new Set(filteredTopics.map((t) => t.category).filter(Boolean))];
+          return cats.map((cat) => {
+            const catTopics = filteredTopics.filter((t) => t.category === cat);
+            const subjId = catTopics[0]?.subjectId ?? 'ethik';
+            const color = subjectColorMap[subjId] || 'indigo';
+            const allCatSelected = catTopics.every((t) => selected.includes(t.id));
+            return (
+              <div key={cat} className={styles.catBlock}>
+                <button type="button" className={`${styles.catHeader} ${styles[`cat_${color}`]}`} onClick={() => {
+                  const catIds = catTopics.map((t) => t.id);
+                  const allSel = catIds.every((id) => selected.includes(id));
+                  if (allSel) setSelected((prev) => prev.filter((id) => !catIds.includes(id)));
+                  else setSelected((prev) => [...new Set([...prev, ...catIds])]);
+                }}>
+                  <span className={`${styles.checkBox} ${allCatSelected ? styles.checkBoxChecked : ''}`}>
+                    {allCatSelected ? '☑' : '☐'}
+                  </span>
+                  <span>{cat}</span>
+                </button>
+                {catTopics.map((topic) => {
+                  const isSelected = selected.includes(topic.id);
+                  const topicQs = ALL_QUESTIONS.filter((q) => Array.isArray(q.topicIds) && q.topicIds.includes(topic.id));
+                  return (
+                    <button key={topic.id} type="button"
+                      className={`${styles.topicItem} ${isSelected ? styles.topicItemSelected : ''}`}
+                      onClick={() => setSelected((prev) =>
+                        prev.includes(topic.id) ? prev.filter((id) => id !== topic.id) : [...prev, topic.id]
+                      )}>
+                      <span className={`${styles.checkBox} ${isSelected ? styles.checkBoxChecked : ''}`}>
+                        {isSelected ? '☑' : '☐'}
+                      </span>
+                      <span className={styles.topicIcon}>{topic.icon}</span>
+                      <span className={styles.topicName}>{topic.title}</span>
+                      <span className={styles.topicQCount}>{topicQs.length} Fragen</span>
+                    </button>
+                  );
+                })}
+              </div>
+            );
+          });
+        })()}
       </div>
 
       {/* Start button */}
